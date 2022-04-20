@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Headline from '../components/Headline'
 import HomepageFooter from '../components/HomepageFooter'
+import { subpages } from "../assets/subpages"
 
 const Home: NextPage = () => {
   return (
@@ -20,21 +21,13 @@ const Home: NextPage = () => {
 
         <nav>
           <ul>
-            <li>
-              <Link href="/characters">
-                <a>Characters</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/locations">
-                <a>Locations</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/episodes">
-                <a>Episodes</a>
-              </Link>
-            </li>
+            {subpages.map(page => (
+              <li key={page.id}>
+                <Link href={`/${page.items}`}>
+                  <a>{page.items}</a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </main>
@@ -44,7 +37,7 @@ const Home: NextPage = () => {
         link="https://home.cesarczyk.dev"
         title='MCesarczyk'
       />
-      
+
     </div>
   )
 }
