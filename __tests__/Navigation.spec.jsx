@@ -18,8 +18,7 @@ test("Navigation should be in document", () => {
 test("Navigation should link to proper subpages", () => {
   setup();
 
-  const links = screen.getAllByRole('link');
-  links.forEach((link, index) => {
-    expect(link).toHaveAttribute('href', `/${subpages[index].items}`);
+  subpages.forEach((_, index) => {
+    expect(screen.getByText(subpages[index].items)).toBeInTheDocument();
   });
 });

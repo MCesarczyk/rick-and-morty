@@ -1,3 +1,5 @@
+import { Flex } from "@chakra-ui/react";
+
 type footerProps = {
   date: number,
   title: string,
@@ -5,9 +7,16 @@ type footerProps = {
 }
 
 const HomepageFooter = ({ date, title, link }: footerProps) => (
-  <footer data-testid="footer">
+  <Flex
+    as="footer"
+    width="100%"
+    justifyContent="center"
+    py={6}
+    background="#dadada"
+    data-testid="footer"
+  >
     {date}
-    {' '}
+    &nbsp;
     <a
       href={link}
       target="_blank"
@@ -15,7 +24,7 @@ const HomepageFooter = ({ date, title, link }: footerProps) => (
     >
       {title}
     </a>
-  </footer>
+  </Flex>
 );
 
 export default HomepageFooter;
