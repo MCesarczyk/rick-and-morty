@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import HeroTitle from '../components/HeroTitle'
 
 const Home: NextPage = () => {
   return (
@@ -12,18 +13,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main >
-        <h1 >
-          Welcome to
-          <a
-            href="https://www.netflix.com/pl/title/80014749"
-            target="_blank"
-            rel='noopener noreferrer'
-          >
-            {' Rick and Morty '}
-          </a>
-          page!
-        </h1>
-
+        <HeroTitle
+          heroLink="https://www.netflix.com/pl/title/80014749"
+          heroName="Rick and Morty"
+        />
         <nav>
           <ul>
             <li>
