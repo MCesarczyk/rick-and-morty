@@ -1,5 +1,7 @@
+import Subpage from "../components/Subpage";
+
 const Locations = () => (
-  <h1>Locations</h1>
+  <Subpage title="Locations" />
 );
 
 export default Locations;

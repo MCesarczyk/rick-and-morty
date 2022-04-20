@@ -1,5 +1,7 @@
+import Subpage from "../components/Subpage";
+
 const Episodes = () => (
-  <h1>Episodes</h1>
+  <Subpage title="Episodes" />
 );
 
 export default Episodes;

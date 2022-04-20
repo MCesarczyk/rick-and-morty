@@ -1,5 +1,7 @@
+import Subpage from "../components/Subpage";
+
 const Characters = () => (
-  <h1>Characters</h1>
+  <Subpage title="Characters" />
 );
 
 export default Characters;
