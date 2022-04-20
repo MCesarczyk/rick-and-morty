@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import HeroTitle from '../components/HeroTitle'
+import Headline from '../components/Headline'
+import HomepageFooter from '../components/HomepageFooter'
 
 const Home: NextPage = () => {
   return (
@@ -13,10 +14,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main >
-        <HeroTitle
-          heroLink="https://www.netflix.com/pl/title/80014749"
-          heroName="Rick and Morty"
+        <Headline
+          title="Welcome to Rick and Morty page!"
         />
+
         <nav>
           <ul>
             <li>
@@ -38,16 +39,12 @@ const Home: NextPage = () => {
         </nav>
       </main>
 
-      <footer >
-        {'2022 by '}
-        <a
-          href="https://home.cesarczyk.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          MCesarczyk
-        </a>
-      </footer>
+      <HomepageFooter
+        date={2022}
+        link="https://home.cesarczyk.dev"
+        title='MCesarczyk'
+      />
+      
     </div>
   )
 }
