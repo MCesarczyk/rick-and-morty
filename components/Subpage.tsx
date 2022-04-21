@@ -1,6 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAPIData } from "../assets/fetchApiData";
 import { apiBaseUrl } from "../assets/links";
+import { setCharactersList } from "../pages/charactersSlice";
 import Headline from "./Headline";
 import SubpageFooter from "./SubpageFooter";
 
@@ -11,27 +14,33 @@ type subpageProps = {
 
 const Subpage = ({ title, apiLocation }: subpageProps) => {
   const apiUrl = `${apiBaseUrl + apiLocation}`;
+  const dispatch = useDispatch();
 
-useEffect(() => {
-  console.log(apiUrl);
-}, [title]);
+  const getApiData = async () => {
+    const data = await fetchAPIData(apiUrl);
+    dispatch(setCharactersList(data));
+  };
 
-return (
-  <Flex
-    direction="column"
-    height="100vh"
-    alignItems="center"
-    justifyContent="space-between"
-  >
-    <main style={{ width: '100%' }}>
-      <Headline
-        title={title}
-      />
-    </main>
+  useEffect(() => {
+    getApiData();
+  }, [apiLocation]);
 
-    <SubpageFooter />
-  </Flex>
-)
+  return (
+    <Flex
+      direction="column"
+      height="100vh"
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <main style={{ width: '100%' }}>
+        <Headline
+          title={title}
+        />
+      </main>
+
+      <SubpageFooter />
+    </Flex>
+  )
 };
 
 export default Subpage;
