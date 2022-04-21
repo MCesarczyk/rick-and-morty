@@ -6,7 +6,7 @@ import {
   setCharactersList,
   setCharactersState
 } from "../pages/charactersSlice";
-import { fetchAPIData } from "../assets/fetchApiData";
+import { fetchApiData } from "../utils/fetchApiData";
 import { API_BASE_URL, DEMO_DELAY } from "../assets/variables";
 import { Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
@@ -26,7 +26,7 @@ const Subpage = ({ title, apiLocation }: subpageProps) => {
 
   const getApiData = async () => {
     dispatch(setCharactersState("loading"));
-    const data = await fetchAPIData(apiUrl);
+    const data = await fetchApiData(apiUrl);
     dispatch(setCharactersList(data));
 
     setTimeout(() => {
