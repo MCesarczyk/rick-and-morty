@@ -1,12 +1,22 @@
 import { Flex } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { apiBaseUrl } from "../assets/links";
 import Headline from "./Headline";
 import SubpageFooter from "./SubpageFooter";
 
 type subpageProps = {
-  title: string
+  title: string,
+  apiLocation: string
 }
 
-const Subpage = ({ title }: subpageProps) => (
+const Subpage = ({ title, apiLocation }: subpageProps) => {
+  const apiUrl = `${apiBaseUrl + apiLocation}`;
+
+useEffect(() => {
+  console.log(apiUrl);
+}, [title]);
+
+return (
   <Flex
     direction="column"
     height="100vh"
@@ -21,6 +31,7 @@ const Subpage = ({ title }: subpageProps) => (
 
     <SubpageFooter />
   </Flex>
-);
+)
+};
 
 export default Subpage;
