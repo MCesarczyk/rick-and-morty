@@ -1,17 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCharactersList,
-  selectState,
-  setCharactersList,
-  setCharactersState
-} from "../pages/charactersSlice";
-import { fetchApiData } from "../utils/fetchApiData";
-import { API_BASE_URL, DEMO_DELAY } from "../assets/variables";
+import { useSelector } from "react-redux";
+import { selectCharactersList, selectState } from "../pages/charactersSlice";
+import { API_BASE_URL } from "../assets/variables";
 import { Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
 import ItemsList from "./ItemsList";
 import SubpageFooter from "./SubpageFooter";
+import { useGetApiData } from "../utils/useGetApiData";
 
 type subpageProps = {
   title: string,
@@ -20,23 +14,11 @@ type subpageProps = {
 
 const Subpage = ({ title, apiLocation }: subpageProps) => {
   const apiUrl = `${API_BASE_URL + apiLocation}`;
-  const dispatch = useDispatch();
+
+  useGetApiData(apiUrl);
+
   const items = useSelector(selectCharactersList);
   const state = useSelector(selectState);
-
-  const getApiData = async () => {
-    dispatch(setCharactersState("loading"));
-    const data = await fetchApiData(apiUrl);
-    dispatch(setCharactersList(data));
-
-    setTimeout(() => {
-      dispatch(setCharactersState("success"));
-    }, DEMO_DELAY);
-  };
-
-  useEffect(() => {
-    getApiData();
-  }, [apiLocation]);
 
   return (
     <Flex
