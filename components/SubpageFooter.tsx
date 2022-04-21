@@ -12,7 +12,7 @@ const SubpageFooter = () => (
   >
     <Link data-testid="footer-link" href={'/'}>
       <a>
-        {'<< back'}
+        {'<< BACK'}
       </a>
     </Link>
   </Flex>
