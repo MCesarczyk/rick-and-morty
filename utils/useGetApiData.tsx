@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DEMO_DELAY } from "../assets/variables";
-import { setCharactersList, setCharactersState } from "../pages/charactersSlice";
+import { setItemsList, setItemsState } from "../pages/itemsSlice";
 import { fetchApiData } from "./fetchApiData";
 
 export const useGetApiData = (url: string) => {
   const dispatch = useDispatch();
 
   const getApiData = async () => {
-    dispatch(setCharactersState("loading"));
+    dispatch(setItemsState("loading"));
     const data = await fetchApiData(url);
-    dispatch(setCharactersList(data));
+    dispatch(setItemsList(data));
 
     setTimeout(() => {
-      dispatch(setCharactersState("success"));
+      dispatch(setItemsState("success"));
     }, DEMO_DELAY);
   };
 

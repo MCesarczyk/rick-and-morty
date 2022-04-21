@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectCharactersList, selectState } from "../pages/charactersSlice";
+import { selectItemsList, selectState } from "../pages/itemsSlice";
 import { API_BASE_URL } from "../assets/variables";
 import { Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
@@ -17,7 +17,7 @@ const Subpage = ({ title, apiLocation }: subpageProps) => {
 
   useGetApiData(apiUrl);
 
-  const items = useSelector(selectCharactersList);
+  const items = useSelector(selectItemsList);
   const state = useSelector(selectState);
 
   return (
