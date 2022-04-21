@@ -1,1 +1,0 @@
-export const apiBaseUrl = "https://rickandmortyapi.com/api";

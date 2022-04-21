@@ -1,10 +1,16 @@
-import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCharactersList,
+  selectState,
+  setCharactersList,
+  setCharactersState
+} from "../pages/charactersSlice";
 import { fetchAPIData } from "../assets/fetchApiData";
-import { apiBaseUrl } from "../assets/links";
-import { setCharactersList } from "../pages/charactersSlice";
+import { API_BASE_URL, DEMO_DELAY } from "../assets/variables";
+import { Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
+import ItemsList from "./ItemsList";
 import SubpageFooter from "./SubpageFooter";
 
 type subpageProps = {
@@ -13,12 +19,19 @@ type subpageProps = {
 }
 
 const Subpage = ({ title, apiLocation }: subpageProps) => {
-  const apiUrl = `${apiBaseUrl + apiLocation}`;
+  const apiUrl = `${API_BASE_URL + apiLocation}`;
   const dispatch = useDispatch();
+  const items = useSelector(selectCharactersList);
+  const state = useSelector(selectState);
 
   const getApiData = async () => {
+    dispatch(setCharactersState("loading"));
     const data = await fetchAPIData(apiUrl);
     dispatch(setCharactersList(data));
+
+    setTimeout(() => {
+      dispatch(setCharactersState("success"));
+    }, DEMO_DELAY);
   };
 
   useEffect(() => {
@@ -28,7 +41,7 @@ const Subpage = ({ title, apiLocation }: subpageProps) => {
   return (
     <Flex
       direction="column"
-      height="100vh"
+      minHeight="100vh"
       alignItems="center"
       justifyContent="space-between"
     >
@@ -37,7 +50,8 @@ const Subpage = ({ title, apiLocation }: subpageProps) => {
           title={title}
         />
       </main>
-
+      {state === 'loading' && "LOADING"}
+      {state === 'success' && <ItemsList items={items} />}
       <SubpageFooter />
     </Flex>
   )
