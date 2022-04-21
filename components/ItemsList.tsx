@@ -5,11 +5,11 @@ type itemsListProps = {
 }
 
 const ItemsList = ({ items }: itemsListProps) => (
-  <TableContainer>
+  <TableContainer data-testid="items-list">
     <Table variant='striped'>
       <Thead>
         <Tr>
-          {Object.keys(items[0]).splice(1, 3).map((item, index) => (
+          {items.length > 0 && Object.keys(items[0]).splice(1, 3).map((item, index) => (
             <Th key={index}>{item}</Th>
           ))}
         </Tr>
