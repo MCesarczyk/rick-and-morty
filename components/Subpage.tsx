@@ -7,6 +7,7 @@ import Headline from "./Headline";
 import ItemsList from "./ItemsList";
 import Pager from "./Pager";
 import SubpageFooter from "./SubpageFooter";
+import SearchForm from "./SearchForm";
 
 type subpageProps = {
   title: string,
@@ -40,6 +41,7 @@ const Subpage = ({ title, initialApiUrl }: subpageProps) => {
       {state === 'loading' && "LOADING"}
       {state === 'success' && (
         <>
+          <SearchForm />
           <ItemsList items={items} />
           <Pager
             pages={info?.pages}
