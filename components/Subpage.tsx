@@ -14,13 +14,16 @@ type subpageProps = {
 }
 
 const Subpage = ({ title, initialApiUrl }: subpageProps) => {
-  const [apiUrl, _] = useState(initialApiUrl);
+  const [apiUrl, setApiUrl] = useState(initialApiUrl);
 
   useGetApiData(apiUrl);
 
   const items = useSelector(selectItemsList);
   const info = useSelector(selectItemsInfo);
   const state = useSelector(selectState);
+
+  // @ts-ignore: Object is possibly 'null'
+  const currentPage = apiUrl === initialApiUrl ? 1 : parseInt(apiUrl.match(/page=(\d+)/)[1]);
 
   return (
     <Flex
@@ -40,8 +43,11 @@ const Subpage = ({ title, initialApiUrl }: subpageProps) => {
           <ItemsList items={items} />
           <Pager
             pages={info?.pages}
+            page={currentPage}
             prev={info?.prev}
             next={info?.next}
+            setUrl={setApiUrl}
+            initialUrl={initialApiUrl}
           />
         </>
       )}
