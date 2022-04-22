@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DEMO_DELAY } from "../assets/variables";
-import { setItemsList, setItemsState } from "../pages/itemsSlice";
+import { clearItemsList, setItemsList, setItemsState } from "../pages/itemsSlice";
 import { fetchApiData } from "./fetchApiData";
 
 export const useGetApiData = (url: string) => {
@@ -19,5 +19,9 @@ export const useGetApiData = (url: string) => {
 
   useEffect(() => {
     getApiData();
+
+    return () => {
+      dispatch(clearItemsList());
+    }
   }, [url]);
 };

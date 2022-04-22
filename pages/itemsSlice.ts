@@ -20,6 +20,7 @@ const itemsSlice = createSlice({
     setItemsList: (state, { payload: items }) => {
       state.items = items;
     },
+    clearItemsList: () => initialState,
     setItemsState: (state, { payload: newState }) => {
       state.state = newState;
     },
@@ -28,6 +29,7 @@ const itemsSlice = createSlice({
 
 export const {
   setItemsList,
+  clearItemsList,
   setItemsState
 } = itemsSlice.actions;
 
