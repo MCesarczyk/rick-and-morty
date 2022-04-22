@@ -3,7 +3,7 @@ import Subpage from "../components/Subpage";
 const Characters = () => (
   <Subpage
     title="Characters"
-    apiLocation="/character"
+    initialApiUrl="https://rickandmortyapi.com/api/character"
   />
 );
 

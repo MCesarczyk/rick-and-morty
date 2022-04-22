@@ -3,7 +3,7 @@ import Subpage from "../components/Subpage";
 const Episodes = () => (
   <Subpage
     title="Episodes"
-    apiLocation="/episode"
+    initialApiUrl="https://rickandmortyapi.com/api/episode"
   />
 );
 

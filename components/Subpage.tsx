@@ -1,23 +1,25 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectItemsList, selectState } from "../pages/itemsSlice";
-import { API_BASE_URL } from "../assets/variables";
+import { selectItemsInfo, selectItemsList, selectState } from "../pages/itemsSlice";
+import { useGetApiData } from "../utils/useGetApiData";
 import { Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
 import ItemsList from "./ItemsList";
+import Pager from "./Pager";
 import SubpageFooter from "./SubpageFooter";
-import { useGetApiData } from "../utils/useGetApiData";
 
 type subpageProps = {
   title: string,
-  apiLocation: string
+  initialApiUrl: string
 }
 
-const Subpage = ({ title, apiLocation }: subpageProps) => {
-  const apiUrl = `${API_BASE_URL + apiLocation}`;
+const Subpage = ({ title, initialApiUrl }: subpageProps) => {
+  const [apiUrl, _] = useState(initialApiUrl);
 
   useGetApiData(apiUrl);
 
   const items = useSelector(selectItemsList);
+  const info = useSelector(selectItemsInfo);
   const state = useSelector(selectState);
 
   return (
@@ -33,7 +35,16 @@ const Subpage = ({ title, apiLocation }: subpageProps) => {
         />
       </main>
       {state === 'loading' && "LOADING"}
-      {state === 'success' && <ItemsList items={items} />}
+      {state === 'success' && (
+        <>
+          <ItemsList items={items} />
+          <Pager
+            pages={info?.pages}
+            prev={info?.prev}
+            next={info?.next}
+          />
+        </>
+      )}
       <SubpageFooter />
     </Flex>
   )
