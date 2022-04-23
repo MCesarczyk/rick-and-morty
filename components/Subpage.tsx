@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectItemsInfo, selectItemsList, selectState } from "../pages/itemsSlice";
+import { selectItemsInfo, selectItemsList, selectState } from "../itemsSlice";
 import { useGetApiData } from "../utils/useGetApiData";
 import { Center, Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
