@@ -12,17 +12,16 @@ type pagerProps = {
   page: number,
   prev: string,
   next: string,
-  setUrl: Function,
-  initialUrl: string
+  setPage: Function
 }
 
-const Pager = ({ pages, page, prev, next, setUrl, initialUrl }: pagerProps) => (
+const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
   <Flex justifyContent="center" m={4} alignItems="center">
     <Flex>
       <Tooltip label="First Page">
         <IconButton
           aria-label="first-page-button"
-          onClick={() => setUrl(initialUrl)}
+          onClick={() => setPage(1)}
           isDisabled={prev === null}
           icon={<ArrowLeftIcon h={3} w={3} />}
           mr={4}
@@ -31,7 +30,7 @@ const Pager = ({ pages, page, prev, next, setUrl, initialUrl }: pagerProps) => (
       <Tooltip label="Previous Page">
         <IconButton
           aria-label="previous-page-button"
-          onClick={() => setUrl(prev)}
+          onClick={() => setPage(page - 1)}
           isDisabled={prev === null}
           icon={<ChevronLeftIcon h={6} w={6} />}
         />
@@ -55,7 +54,7 @@ const Pager = ({ pages, page, prev, next, setUrl, initialUrl }: pagerProps) => (
       <Tooltip label="Next Page">
         <IconButton
           aria-label="next-page-button"
-          onClick={() => setUrl(next)}
+          onClick={() => setPage(page + 1)}
           isDisabled={next === null}
           icon={<ChevronRightIcon h={6} w={6} />}
         />
@@ -63,7 +62,7 @@ const Pager = ({ pages, page, prev, next, setUrl, initialUrl }: pagerProps) => (
       <Tooltip label="Last Page">
         <IconButton
           aria-label="last-page-button"
-          onClick={() => setUrl(`${initialUrl}?page=${pages}`)}
+          onClick={() => setPage(pages)}
           isDisabled={next === null}
           icon={<ArrowRightIcon h={3} w={3} />}
           ml={4}

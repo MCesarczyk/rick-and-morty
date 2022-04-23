@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectItemsInfo, selectItemsList, selectState } from "../pages/itemsSlice";
 import { useGetApiData } from "../utils/useGetApiData";
-import { Flex } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import Headline from "./Headline";
 import ItemsList from "./ItemsList";
 import Pager from "./Pager";
 import SubpageFooter from "./SubpageFooter";
 import SearchForm from "./SearchForm";
+import { useRouter } from "next/router";
+import { buildApiUrlString } from "../utils/buildApiUrlString";
 
 type subpageProps = {
   title: string,
@@ -16,15 +18,52 @@ type subpageProps = {
 
 const Subpage = ({ title, initialApiUrl }: subpageProps) => {
   const [apiUrl, setApiUrl] = useState(initialApiUrl);
-
-  useGetApiData(apiUrl);
-
   const items = useSelector(selectItemsList);
   const info = useSelector(selectItemsInfo);
   const state = useSelector(selectState);
+  const router = useRouter();
 
-  // @ts-ignore: Object is possibly 'null'
-  const currentPage = apiUrl === initialApiUrl ? 1 : parseInt(apiUrl.match(/page=(\d+)/)[1]);
+  const page = router?.query?.page;
+  const query = router?.query?.name;
+
+  useGetApiData(apiUrl);
+
+  const onPageChange = (page: number) => {
+    if (query !== undefined && query?.length > 0) {
+      router.push({
+        pathname: router.pathname,
+        query: {
+          page: page,
+          name: query
+        }
+      });
+    } else {
+      router.push({
+        pathname: router.pathname,
+        query: {
+          page: page
+        }
+      });
+    }
+  };
+
+  const onQueryChange = (query: string) => {
+    if (query.length > 0) {
+      router.push({
+        pathname: router.pathname,
+        query: { name: query }
+      });
+    } else {
+      router.push({
+        pathname: router.pathname
+      });
+    }
+  };
+
+  useEffect(() => {
+    const apiUrlString = buildApiUrlString(initialApiUrl, page, query);
+    setApiUrl(apiUrlString);
+  }, [router])
 
   return (
     <Flex
@@ -41,16 +80,28 @@ const Subpage = ({ title, initialApiUrl }: subpageProps) => {
       {state === 'loading' && "LOADING"}
       {state === 'success' && (
         <>
-          <SearchForm />
-          <ItemsList items={items} />
-          <Pager
-            pages={info?.pages}
-            page={currentPage}
-            prev={info?.prev}
-            next={info?.next}
-            setUrl={setApiUrl}
-            initialUrl={initialApiUrl}
+          <SearchForm
+            // @ts-ignore: type mismatched
+            query={router?.query?.name || ''}
+            setQuery={onQueryChange}
           />
+          {
+            (items === undefined || items?.length === 0) ?
+              <Center flexGrow={1} >
+                NO RESULTS FOUND...
+              </Center> :
+              <>
+                <ItemsList items={items} />
+                <Pager
+                  pages={info?.pages}
+                  prev={info?.prev}
+                  next={info?.next}
+                  // @ts-ignore: type mismatched
+                  page={page === undefined ? 1 : parseInt(page)}
+                  setPage={onPageChange}
+                />
+              </>
+          }
         </>
       )}
       <SubpageFooter />

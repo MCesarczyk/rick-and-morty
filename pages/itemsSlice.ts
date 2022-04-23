@@ -36,8 +36,8 @@ export const {
 export const selectState = (state: RootState) => state.items.state;
 
 const selectItems = (state: RootState) => state.items.items;
-export const selectItemsList = (state: RootState) => selectItems(state).results;
-export const selectItemsInfo = (state: RootState) => selectItems(state).info;
+export const selectItemsList = (state: RootState) => selectItems(state)?.results;
+export const selectItemsInfo = (state: RootState) => selectItems(state)?.info;
 export const selectPagesNumber = (state: RootState) => selectItemsInfo(state).pages;
 export const selectNextPage = (state: RootState) => selectItemsInfo(state).next;
 export const selectPreviousPage = (state: RootState) => selectItemsInfo(state).prev;

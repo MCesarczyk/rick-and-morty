@@ -1,30 +1,22 @@
 import React from "react";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input
-} from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 
 type innerFormProps = {
-  field: object,
-  form: {
-    errors: {
-      name: boolean
-    },
-    touched: {
-      name: boolean
-    }
-  }
+  field: object
 }
 
-const SearchForm = () => (
+type searchProps = {
+  query: string,
+  setQuery: Function
+}
+
+const SearchForm = ({ query, setQuery }: searchProps) => (
   <Formik
-    initialValues={{ name: "" }}
+    initialValues={{ name: query }}
     onSubmit={(values, actions) => {
       setTimeout(() => {
-        console.log(values.name);
+        setQuery(values.name);
         actions.setSubmitting(false);
       }, 200);
     }}
@@ -32,12 +24,11 @@ const SearchForm = () => (
     {(props) => (
       <Form>
         <Field name="name">
-          {({ field, form }: innerFormProps) => (
+          {({ field }: innerFormProps) => (
             <FormControl
               m={4}
               display="flex"
               alignItems="baseline"
-              isInvalid={form.errors.name && form.touched.name}
             >
               <FormLabel htmlFor="name" mx={4}>Search&nbsp;by&nbsp;name:</FormLabel>
               <Input {...field} id="name" placeholder="name" />
@@ -48,7 +39,7 @@ const SearchForm = () => (
                 isLoading={props.isSubmitting}
                 type="submit"
               >
-                Submit
+                Search
               </Button>
             </FormControl>
           )}
