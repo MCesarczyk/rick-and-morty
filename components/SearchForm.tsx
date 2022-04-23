@@ -22,7 +22,7 @@ const SearchForm = ({ query, setQuery }: searchProps) => (
     }}
   >
     {(props) => (
-      <Form>
+      <Form data-testid="search">
         <Field name="name">
           {({ field }: innerFormProps) => (
             <FormControl
@@ -39,7 +39,7 @@ const SearchForm = ({ query, setQuery }: searchProps) => (
                 isLoading={props.isSubmitting}
                 type="submit"
               >
-                Search
+                Filter
               </Button>
             </FormControl>
           )}
