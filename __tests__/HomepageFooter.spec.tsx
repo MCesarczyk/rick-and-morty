@@ -9,7 +9,7 @@ const setup = () => render(
   />
 );
 
-test("Footer should be in document", () => {
+test("Footer should mount properly", () => {
   setup();
 
   const footer = screen.getByTestId("footer");

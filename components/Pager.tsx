@@ -10,8 +10,8 @@ import {
 type pagerProps = {
   pages: number,
   page: number,
-  prev: string,
-  next: string,
+  prev: string | null,
+  next: string | null,
   setPage: Function
 }
 

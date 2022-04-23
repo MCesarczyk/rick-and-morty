@@ -7,7 +7,7 @@ const setup = () => render(
   />
 );
 
-test("Headline should be in document", () => {
+test("Headline should mount properly", () => {
   setup();
 
   const header = screen.getByRole('heading');

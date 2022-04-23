@@ -8,14 +8,14 @@ const setup = () => render(
   />
 );
 
-test("Navigation should be in document", () => {
+test("Navigation should mount properly", () => {
   setup();
 
   const navigation = screen.getByRole('navigation');
   expect(navigation).toBeInTheDocument();
 });
 
-test("Navigation should link to proper subpages", () => {
+test("Navigation links should display proper subpages names", () => {
   setup();
 
   subpages.forEach((_, index) => {

@@ -1,8 +1,33 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
-type itemsListProps = {
-  items: { key1: string, key2: string, key3: string }[]
+type charactersList = {
+  items: {
+    id: number,
+    name: string,
+    status: string,
+    species: string
+  }[]
 }
+
+type locationsList = {
+  items: {
+    id: number,
+    name: string,
+    type: string,
+    dimension: string
+  }[]
+}
+
+type episodesList = {
+  items: {
+    id: number,
+    name: string,
+    air_date: string,
+    episode: string
+  }[]
+}
+
+type itemsListProps = charactersList | locationsList | episodesList;
 
 const ItemsList = ({ items }: itemsListProps) => (
   <TableContainer data-testid="items-list">

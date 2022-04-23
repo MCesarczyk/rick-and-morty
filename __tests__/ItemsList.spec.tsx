@@ -1,24 +1,38 @@
 const { render, screen } = require("@testing-library/react");
 import ItemsList from "../components/ItemsList";
 
-const mock = [
+type itemsListProps = {
+  id: number,
+  name: string,
+  status: string,
+  species: string
+}[]
+
+type mockType = {
+  id: number,
+  name: string,
+  status: string,
+  species: string
+}[]
+
+const mock: mockType = [
   {
     id: 1,
-    name: "John",
-    surname: "Doe",
-    city: "LA"
+    name: "Xyz Qwerty",
+    status: "Dead",
+    species: "Alien"
   },
   {
     id: 2,
-    name: "Mary",
-    Surname: "Jane",
-    city: "NY"
+    name: "Mary Jane",
+    status: "Alive",
+    species: "Human"
   }
 ];
 
-const queries = ['John', 'Doe', 'LA', 'Mary', 'Jane', 'NY'];
+const queries = ['Xyz Qwerty', 'Dead', 'Alien', 'Mary Jane', 'Alive', 'Human'];
 
-const setup = (items) => render(
+const setup = (items: itemsListProps) => render(
   <ItemsList items={items} />
 );
 
@@ -29,7 +43,7 @@ test("ItemsList should be mounted successfuly", () => {
   expect(list).toBeInTheDocument();
 });
 
-test("ItemsList should contain empty table", () => {
+test("ItemsList should contain empty table when no data passing", () => {
   setup([]);
 
   const table = screen.getByRole('table');

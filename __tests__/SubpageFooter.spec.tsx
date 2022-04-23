@@ -5,7 +5,7 @@ const setup = () => render(
   <SubpageFooter />
 );
 
-test("Footer should be in document", () => {
+test("Footer should mount properly", () => {
   setup();
 
   const footer = screen.getByTestId("footer");
@@ -19,7 +19,7 @@ test("Footer link should display proper text", () => {
   expect(title).toBeInTheDocument();
 });
 
-test("Footer link should move to home page", () => {
+test("Footer link should point to home page", () => {
   setup();
 
   const link = screen.getByRole('link');

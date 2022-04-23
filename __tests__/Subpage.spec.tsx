@@ -3,14 +3,14 @@ import { Provider } from "react-redux";
 import store from "../store";
 import Subpage from "../components/Subpage";
 
-const setup = (title, apiLocation) => render(
+const setup = (title: string, apiLocation: string) => render(
   <Provider store={store}>
-    <Subpage title={title} apiLocation={apiLocation} />
+    <Subpage title={title} initialApiUrl={apiLocation} />
   </Provider>
 );
 
 test("Subpage should contain given title", () => {
-  setup("Lorem Ipsum");
+  setup("Lorem Ipsum", '');
 
   const title = screen.getByText(/Lorem Ipsum/);
   expect(title).toBeInTheDocument();
