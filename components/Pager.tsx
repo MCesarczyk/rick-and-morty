@@ -21,6 +21,7 @@ const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
       <Tooltip label="First Page">
         <IconButton
           aria-label="first-page-button"
+          data-testid="first"
           onClick={() => setPage(1)}
           isDisabled={prev === null}
           icon={<ArrowLeftIcon h={3} w={3} />}
@@ -30,6 +31,7 @@ const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
       <Tooltip label="Previous Page">
         <IconButton
           aria-label="previous-page-button"
+          data-testid="previous"
           onClick={() => setPage(page - 1)}
           isDisabled={prev === null}
           icon={<ChevronLeftIcon h={6} w={6} />}
@@ -37,14 +39,22 @@ const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
       </Tooltip>
     </Flex>
 
-    <Flex alignItems="center">
+    <Flex alignItems="center" data-testid="counter">
       <Text mx={8}>
         Page{" "}
-        <Text fontWeight="bold" as="span">
+        <Text
+          fontWeight="bold"
+          as="span"
+          aria-label="current-page"
+        >
           {page}
         </Text>{" "}
         /{" "}
-        <Text fontWeight="bold" as="span">
+        <Text
+          fontWeight="bold"
+          as="span"
+          aria-label="total-pages"
+        >
           {pages}
         </Text>
       </Text>
@@ -54,6 +64,7 @@ const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
       <Tooltip label="Next Page">
         <IconButton
           aria-label="next-page-button"
+          data-testid="next"
           onClick={() => setPage(page + 1)}
           isDisabled={next === null}
           icon={<ChevronRightIcon h={6} w={6} />}
@@ -62,6 +73,7 @@ const Pager = ({ pages, page, prev, next, setPage }: pagerProps) => (
       <Tooltip label="Last Page">
         <IconButton
           aria-label="last-page-button"
+          data-testid="last"
           onClick={() => setPage(pages)}
           isDisabled={next === null}
           icon={<ArrowRightIcon h={3} w={3} />}
