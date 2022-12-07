@@ -1,15 +1,11 @@
-import { makeSchema, queryType } from 'nexus';
 import { ApolloServer } from 'apollo-server-micro';
 import Cors from "micro-cors";
+import schema from '../../schema';
 
-const Query = queryType({
-  definition(t) {
-    t.string('hello', { resolve: () => 'hello world!' })
-  },
-});
+const cors = Cors();
 
-const schema = makeSchema({
-  types: [Query],
+const server = new ApolloServer({
+  schema,
 });
 
 export const config = {
@@ -17,12 +13,6 @@ export const config = {
     bodyParser: false,
   },
 };
-
-const cors = Cors();
-
-const server = new ApolloServer({
-  schema,
-});
 
 const startServer = server.start();
 
