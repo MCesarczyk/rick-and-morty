@@ -4,7 +4,7 @@ import { DEMO_DELAY } from "../assets/variables";
 import { clearItemsList, setItemsList, setItemsState } from "../itemsSlice";
 import { fetchApiData } from "./fetchApiData";
 
-export const useGetApiData = (url: string) => {
+export const useGetApiData = (url: string, topicQuery: string) => {
   const dispatch = useDispatch();
 
   const getApiData = async () => {

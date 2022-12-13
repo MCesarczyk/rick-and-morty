@@ -12,11 +12,12 @@ import { useRouter } from "next/router";
 import { buildApiUrlString } from "../utils/buildApiUrlString";
 
 type subpageProps = {
-  title: string,
-  initialApiUrl: string
+  title: string;
+  initialApiUrl: string;
+  topicQuery: string;
 }
 
-const Subpage = ({ title, initialApiUrl }: subpageProps) => {
+const Subpage = ({ title, initialApiUrl, topicQuery }: subpageProps) => {
   const [apiUrl, setApiUrl] = useState(initialApiUrl);
   const items = useSelector(selectItemsList);
   const info = useSelector(selectItemsInfo);
@@ -26,7 +27,7 @@ const Subpage = ({ title, initialApiUrl }: subpageProps) => {
   const page = router?.query?.page;
   const query = router?.query?.name;
 
-  useGetApiData(apiUrl);
+  useGetApiData(apiUrl, topicQuery);
 
   const onPageChange = (page: number) => {
     if (query !== undefined && query?.length > 0) {

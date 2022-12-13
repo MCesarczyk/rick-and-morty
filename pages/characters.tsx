@@ -1,10 +1,34 @@
-import Subpage from "../components/Subpage";
+import { useEffect, useState } from 'react';
+import { Character } from '../app/types';
+import { getCharactersUseCase } from './useCases/getCharactersUseCase';
 
-const Characters = () => (
-  <Subpage
-    title="Characters"
-    initialApiUrl="https://rickandmortyapi.com/api/character"
-  />
-);
+interface HomeProps {
+  characters: Character[];
+};
 
-export default Characters;
+const Home = () => {
+  const [characters, setCharacters] = useState<Character[]>([]);
+
+  const getCharacters = async () => {
+    const response = await getCharactersUseCase();
+
+    setCharacters(response.props.characters.results);
+  };
+
+  useEffect(() => {
+    getCharacters()
+  }, []);
+
+  return (
+    <div>
+      <ul>
+        {characters?.length && characters.map(character => (
+          <li key={character.id}>{character.id} - {character.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Home;
+
