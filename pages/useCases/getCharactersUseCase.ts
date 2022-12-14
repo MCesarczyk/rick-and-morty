@@ -1,6 +1,9 @@
 import request, { gql } from "graphql-request";
+import { useCharactersRepository } from "../../infrastructure/charactersRespository";
 
-export const getCharactersUseCase = async () => {
+export const useGetCharactersUseCase = async () => {
+  const charactersRespository = useCharactersRepository();
+
   const query = gql`
       {
         characters {
@@ -9,18 +12,15 @@ export const getCharactersUseCase = async () => {
           }
           results {
             id,
-            name
+            name,
+            species,
+            status
           }
         }
       }
     `;
 
-  const data = await request('https://rickandmortyapi.com/graphql', query);
-  const { characters } = await data;
+  const characters = await charactersRespository.getCharacters(query);
 
-  return {
-    props: {
-      characters,
-    },
-  }
+  return characters;
 };

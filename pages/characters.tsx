@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Character } from '../app/types';
-import { getCharactersUseCase } from './useCases/getCharactersUseCase';
+import { useGetCharactersUseCase } from './useCases/getCharactersUseCase';
 
-interface HomeProps {
-  characters: Character[];
+interface TileProps {
+  character: Character;
 };
+
+export const Tile = (character: Character) => (
+  <li key={character.id}>
+    {character.id} - {character.name} - {character.species} - {character.status}
+  </li>
+);
 
 const Home = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
 
   const getCharacters = async () => {
-    const response = await getCharactersUseCase();
-
-    setCharacters(response.props.characters.results);
+    const characters = await useGetCharactersUseCase();
+    setCharacters(characters);
   };
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const Home = () => {
     <div>
       <ul>
         {characters?.length && characters.map(character => (
-          <li key={character.id}>{character.id} - {character.name}</li>
+          <li key={character.id}>{character.id} - {character.name} - {character.species} - {character.status} </li>
         ))}
       </ul>
     </div>
@@ -31,4 +36,3 @@ const Home = () => {
 };
 
 export default Home;
-
